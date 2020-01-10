@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.NetInfoDao">
+  <resultMap id="BaseResultMap" type="NetInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cid" jdbcType="VARCHAR" property="cid" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="duration" jdbcType="VARCHAR" property="duration" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="subflow" jdbcType="VARCHAR" property="subflow" />
+    <result column="net_type" jdbcType="VARCHAR" property="netType" />
+    <result column="service_name" jdbcType="VARCHAR" property="serviceName" />
+    <result column="fee" jdbcType="VARCHAR" property="fee" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, cid, time, duration, location, subflow, net_type, service_name, fee, create_time
+  </sql>
+
+  <select id="selectByCid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from net_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByCid" parameterType="java.lang.String">
+    delete from net_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT IGNORE INTO net_info (id, cid, time,
+      duration, location, subflow, 
+      net_type, service_name, fee, 
+      create_time)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+    (#{item.id,jdbcType=VARCHAR}, #{item.cid,jdbcType=VARCHAR}, #{item.time,jdbcType=VARCHAR},
+      #{item.duration,jdbcType=VARCHAR}, #{item.location,jdbcType=VARCHAR}, #{item.subflow,jdbcType=VARCHAR},
+      #{item.netType,jdbcType=VARCHAR}, #{item.serviceName,jdbcType=VARCHAR}, #{item.fee,jdbcType=VARCHAR},
+      #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+
+  <insert id="insert" parameterType="NetInfo">
+    insert into net_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="subflow != null">
+        subflow,
+      </if>
+      <if test="netType != null">
+        net_type,
+      </if>
+      <if test="serviceName != null">
+        service_name,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="subflow != null">
+        #{subflow,jdbcType=VARCHAR},
+      </if>
+      <if test="netType != null">
+        #{netType,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null">
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

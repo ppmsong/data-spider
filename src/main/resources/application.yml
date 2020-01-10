@@ -1,0 +1,28 @@
+server:
+  port: 8800
+
+jdbc:
+  driverClassName: com.mysql.jdbc.Driver
+  url: jdbc:mysql://103.47.241.45:3306/mobile?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false
+  username: root
+  password: isec@@mysql
+
+
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.crw.contact.entity
+
+logging:
+  config: classpath:log4j2.xml
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.crw.contact.entity
+
+
+dataSpider:
+  domain: 103.47.241.45:8800
+  # 代理
+  proxyIpAndPort:
+  alipay:
+    imagesPath: /Users/longlongl/project_jar/static/images/alipay/
+  mobile:
+    imagesPath: /Users/longlongl/project_jar/static/images/mobile/

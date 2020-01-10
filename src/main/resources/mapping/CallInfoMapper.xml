@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.CallInfoDao">
+  <resultMap id="BaseResultMap" type="CallInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cid" jdbcType="VARCHAR" property="cid" />
+    <result column="fee" jdbcType="VARCHAR" property="fee" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="location_type" jdbcType="VARCHAR" property="locationType" />
+    <result column="peer_number" jdbcType="VARCHAR" property="peerNumber" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="duration" jdbcType="VARCHAR" property="duration" />
+    <result column="dial_type" jdbcType="VARCHAR" property="dialType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, cid, fee, location, location_type, peer_number, time, duration, dial_type, remark, 
+    create_time
+  </sql>
+
+  <select id="selectByCid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from call_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByCid" parameterType="java.lang.String">
+    delete from call_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT IGNORE INTO call_info (id, cid, fee,
+      location, location_type, peer_number, 
+      time, duration, dial_type, 
+      remark, create_time)
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+     (#{item.id,jdbcType=VARCHAR}, #{item.cid,jdbcType=VARCHAR}, #{item.fee,jdbcType=VARCHAR},
+      #{item.location,jdbcType=VARCHAR}, #{item.locationType,jdbcType=VARCHAR}, #{item.peerNumber,jdbcType=VARCHAR},
+      #{item.time,jdbcType=VARCHAR}, #{item.duration,jdbcType=VARCHAR}, #{item.dialType,jdbcType=VARCHAR},
+      #{item.remark,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+
+  <insert id="insert" parameterType="CallInfo">
+    insert into call_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="locationType != null">
+        location_type,
+      </if>
+      <if test="peerNumber != null">
+        peer_number,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="duration != null">
+        duration,
+      </if>
+      <if test="dialType != null">
+        dial_type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="locationType != null">
+        #{locationType,jdbcType=VARCHAR},
+      </if>
+      <if test="peerNumber != null">
+        #{peerNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="duration != null">
+        #{duration,jdbcType=VARCHAR},
+      </if>
+      <if test="dialType != null">
+        #{dialType,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

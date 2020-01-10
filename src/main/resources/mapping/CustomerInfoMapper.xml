@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.CustomerInfoDao">
+    <resultMap id="BaseResultMap" type="CustomerInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="open_time" jdbcType="VARCHAR" property="openTime"/>
+        <result column="package_name" jdbcType="VARCHAR" property="packageName"/>
+        <result column="available_balance" jdbcType="VARCHAR" property="availableBalance"/>
+        <result column="level" jdbcType="VARCHAR" property="level"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="is_cert" jdbcType="VARCHAR" property="isCert"/>
+        <result column="state" jdbcType="VARCHAR" property="state"/>
+        <result column="idcard" jdbcType="VARCHAR" property="idcard"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, mobile, name, open_time, package_name, available_balance, level, province, is_cert, 
+    state, idcard, email, address, create_time
+  </sql>
+
+    <select id="selectById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from customer_info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteById" parameterType="java.lang.String">
+    delete from customer_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insert1" parameterType="CustomerInfo">
+    insert into customer_info (id, mobile, name, 
+      open_time, package_name, available_balance, 
+      level, province, is_cert, 
+      state, idcard, email, 
+      address, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{openTime,jdbcType=VARCHAR}, #{packageName,jdbcType=VARCHAR}, #{availableBalance,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{isCert,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insert" parameterType="CustomerInfo">
+        insert into customer_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="openTime != null">
+                open_time,
+            </if>
+            <if test="packageName != null">
+                package_name,
+            </if>
+            <if test="availableBalance != null">
+                available_balance,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="province != null">
+                province,
+            </if>
+            <if test="isCert != null">
+                is_cert,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="idcard != null">
+                idcard,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="openTime != null">
+                #{openTime,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="availableBalance != null">
+                #{availableBalance,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="isCert != null">
+                #{isCert,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="idcard != null">
+                #{idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+
+        ON DUPLICATE KEY UPDATE
+        <trim suffixOverrides=",">
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="openTime != null">
+                open_time = #{openTime,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                package_name = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="availableBalance != null">
+                available_balance = #{availableBalance,jdbcType=VARCHAR},
+            </if>
+            <if test="level != null">
+                level = #{level,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                province = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="isCert != null">
+                is_cert = #{isCert,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=VARCHAR},
+            </if>
+            <if test="idcard != null">
+                idcard = #{idcard,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

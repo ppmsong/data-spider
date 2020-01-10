@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.AlitransactionDetailDao">
+  <resultMap id="BaseResultMap" type="com.crw.contact.entity.AlitransactionDetail">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cid" jdbcType="VARCHAR" property="cid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="order_time" jdbcType="VARCHAR" property="orderTime" />
+    <result column="orderid" jdbcType="VARCHAR" property="orderid" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="order_price" jdbcType="VARCHAR" property="orderPrice" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="order_status" jdbcType="VARCHAR" property="orderStatus" />
+    <result column="consignee_name" jdbcType="VARCHAR" property="consigneeName" />
+    <result column="consignee_tel" jdbcType="VARCHAR" property="consigneeTel" />
+    <result column="consignee_street" jdbcType="VARCHAR" property="consigneeStreet" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, cid, create_time, order_time, orderid, product_name, order_price, store_name, 
+    order_status, consignee_name, consignee_tel, consignee_street
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ali_transaction_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ali_transaction_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.crw.contact.entity.AlitransactionDetail">
+    insert into ali_transaction_detail (id, cid, create_time, 
+      order_time, orderid, product_name, 
+      order_price, store_name, order_status, 
+      consignee_name, consignee_tel, consignee_street
+      )
+    values (#{id,jdbcType=VARCHAR}, #{cid,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{orderTime,jdbcType=VARCHAR}, #{orderid,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{orderPrice,jdbcType=VARCHAR}, #{storeName,jdbcType=VARCHAR}, #{orderStatus,jdbcType=VARCHAR}, 
+      #{consigneeName,jdbcType=VARCHAR}, #{consigneeTel,jdbcType=VARCHAR}, #{consigneeStreet,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.crw.contact.entity.AlitransactionDetail">
+    insert into ali_transaction_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="orderTime != null">
+        order_time,
+      </if>
+      <if test="orderid != null">
+        orderid,
+      </if>
+      <if test="productName != null">
+        product_name,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+      <if test="storeName != null">
+        store_name,
+      </if>
+      <if test="orderStatus != null">
+        order_status,
+      </if>
+      <if test="consigneeName != null">
+        consignee_name,
+      </if>
+      <if test="consigneeTel != null">
+        consignee_tel,
+      </if>
+      <if test="consigneeStreet != null">
+        consignee_street,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTime != null">
+        #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeName != null">
+        #{consigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeTel != null">
+        #{consigneeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeStreet != null">
+        #{consigneeStreet,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    ON DUPLICATE KEY UPDATE
+
+    <trim suffixOverrides=",">
+      <if test="cid != null">
+        cid = #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null">
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeName != null">
+        consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeTel != null">
+        consignee_tel = #{consigneeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeStreet != null">
+        consignee_street = #{consigneeStreet,jdbcType=VARCHAR},
+      </if>
+    </trim>
+
+
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crw.contact.entity.AlitransactionDetail">
+    update ali_transaction_detail
+    <set>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderTime != null">
+        order_time = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null">
+        orderid = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null">
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="storeName != null">
+        store_name = #{storeName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null">
+        order_status = #{orderStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeName != null">
+        consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeTel != null">
+        consignee_tel = #{consigneeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeStreet != null">
+        consignee_street = #{consigneeStreet,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crw.contact.entity.AlitransactionDetail">
+    update ali_transaction_detail
+    set cid = #{cid,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      order_time = #{orderTime,jdbcType=VARCHAR},
+      orderid = #{orderid,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      order_price = #{orderPrice,jdbcType=VARCHAR},
+      store_name = #{storeName,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=VARCHAR},
+      consignee_name = #{consigneeName,jdbcType=VARCHAR},
+      consignee_tel = #{consigneeTel,jdbcType=VARCHAR},
+      consignee_street = #{consigneeStreet,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

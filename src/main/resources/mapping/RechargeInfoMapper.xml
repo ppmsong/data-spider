@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.RechargeInfoDao">
+  <resultMap id="BaseResultMap" type="RechargeInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="cid" jdbcType="VARCHAR" property="cid" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="recharge_time" jdbcType="VARCHAR" property="rechargeTime" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, cid, amount, recharge_time, type, create_time
+  </sql>
+
+  <select id="selectByCid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recharge_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByCid" parameterType="java.lang.String">
+    delete from recharge_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT IGNORE INTO  recharge_info (id, cid, amount,
+      recharge_time, type, create_time
+      )
+    VALUES
+    <foreach collection="list" item="item" index="index" separator=",">
+     (#{item.id,jdbcType=VARCHAR}, #{item.cid,jdbcType=VARCHAR}, #{item.amount,jdbcType=VARCHAR},
+      #{item.rechargeTime,jdbcType=VARCHAR}, #{item.type,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insert" parameterType="RechargeInfo">
+    insert into recharge_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="rechargeTime != null">
+        recharge_time,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTime != null">
+        #{rechargeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

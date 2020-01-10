@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.BillInfoDao">
+    <resultMap id="BaseResultMap" type="BillInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="cid" jdbcType="VARCHAR" property="cid"/>
+        <result column="base_fee" jdbcType="VARCHAR" property="baseFee"/>
+        <result column="bill_month" jdbcType="VARCHAR" property="billMonth"/>
+        <result column="bill_start_date" jdbcType="VARCHAR" property="billStartDate"/>
+        <result column="bill_end_date" jdbcType="VARCHAR" property="billEndDate"/>
+        <result column="voice_fee" jdbcType="VARCHAR" property="voiceFee"/>
+        <result column="web_fee" jdbcType="VARCHAR" property="webFee"/>
+        <result column="sms_fee" jdbcType="VARCHAR" property="smsFee"/>
+        <result column="extra_fee" jdbcType="VARCHAR" property="extraFee"/>
+        <result column="extra_service_fee" jdbcType="VARCHAR" property="extraServiceFee"/>
+        <result column="discount" jdbcType="VARCHAR" property="discount"/>
+        <result column="total_fee" jdbcType="VARCHAR" property="totalFee"/>
+        <result column="point" jdbcType="VARCHAR" property="point"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    id, cid, base_fee, bill_month, bill_start_date, bill_end_date, voice_fee, web_fee, 
+    sms_fee, extra_fee, extra_service_fee, discount, total_fee, point, create_time
+  </sql>
+
+    <select id="selectByCid" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from bill_info
+        where cid = #{cid,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByCid" parameterType="java.lang.String">
+    delete from bill_info
+    where cid = #{cid,jdbcType=VARCHAR}
+  </delete>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT IGNORE INTO bill_info (id, cid, base_fee,
+        bill_month, bill_start_date, bill_end_date,
+        voice_fee, web_fee, sms_fee,
+        extra_fee, extra_service_fee, discount,
+        total_fee, point, create_time
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id,jdbcType=VARCHAR}, #{item.cid,jdbcType=VARCHAR}, #{item.baseFee,jdbcType=VARCHAR},
+            #{item.billMonth,jdbcType=VARCHAR}, #{item.billStartDate,jdbcType=VARCHAR},
+            #{item.billEndDate,jdbcType=VARCHAR},
+            #{item.voiceFee,jdbcType=VARCHAR}, #{item.webFee,jdbcType=VARCHAR}, #{item.smsFee,jdbcType=VARCHAR},
+            #{item.extraFee,jdbcType=VARCHAR}, #{item.extraServiceFee,jdbcType=VARCHAR},
+            #{item.discount,jdbcType=VARCHAR},
+            #{item.totalFee,jdbcType=VARCHAR}, #{item.point,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insert" parameterType="BillInfo">
+        insert into bill_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="cid != null">
+                cid,
+            </if>
+            <if test="baseFee != null">
+                base_fee,
+            </if>
+            <if test="billMonth != null">
+                bill_month,
+            </if>
+            <if test="billStartDate != null">
+                bill_start_date,
+            </if>
+            <if test="billEndDate != null">
+                bill_end_date,
+            </if>
+            <if test="voiceFee != null">
+                voice_fee,
+            </if>
+            <if test="webFee != null">
+                web_fee,
+            </if>
+            <if test="smsFee != null">
+                sms_fee,
+            </if>
+            <if test="extraFee != null">
+                extra_fee,
+            </if>
+            <if test="extraServiceFee != null">
+                extra_service_fee,
+            </if>
+            <if test="discount != null">
+                discount,
+            </if>
+            <if test="totalFee != null">
+                total_fee,
+            </if>
+            <if test="point != null">
+                point,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="cid != null">
+                #{cid,jdbcType=VARCHAR},
+            </if>
+            <if test="baseFee != null">
+                #{baseFee,jdbcType=VARCHAR},
+            </if>
+            <if test="billMonth != null">
+                #{billMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="billStartDate != null">
+                #{billStartDate,jdbcType=VARCHAR},
+            </if>
+            <if test="billEndDate != null">
+                #{billEndDate,jdbcType=VARCHAR},
+            </if>
+            <if test="voiceFee != null">
+                #{voiceFee,jdbcType=VARCHAR},
+            </if>
+            <if test="webFee != null">
+                #{webFee,jdbcType=VARCHAR},
+            </if>
+            <if test="smsFee != null">
+                #{smsFee,jdbcType=VARCHAR},
+            </if>
+            <if test="extraFee != null">
+                #{extraFee,jdbcType=VARCHAR},
+            </if>
+            <if test="extraServiceFee != null">
+                #{extraServiceFee,jdbcType=VARCHAR},
+            </if>
+            <if test="discount != null">
+                #{discount,jdbcType=VARCHAR},
+            </if>
+            <if test="totalFee != null">
+                #{totalFee,jdbcType=VARCHAR},
+            </if>
+            <if test="point != null">
+                #{point,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE
+        <trim suffixOverrides=",">
+            <if test="cid != null">
+                cid = #{cid,jdbcType=VARCHAR},
+            </if>
+            <if test="baseFee != null">
+                base_fee = #{baseFee,jdbcType=VARCHAR},
+            </if>
+            <if test="billMonth != null">
+                bill_month = #{billMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="billStartDate != null">
+                bill_start_date = #{billStartDate,jdbcType=VARCHAR},
+            </if>
+            <if test="billEndDate != null">
+                bill_end_date = #{billEndDate,jdbcType=VARCHAR},
+            </if>
+            <if test="voiceFee != null">
+                voice_fee = #{voiceFee,jdbcType=VARCHAR},
+            </if>
+            <if test="webFee != null">
+                web_fee = #{webFee,jdbcType=VARCHAR},
+            </if>
+            <if test="smsFee != null">
+                sms_fee = #{smsFee,jdbcType=VARCHAR},
+            </if>
+            <if test="extraFee != null">
+                extra_fee = #{extraFee,jdbcType=VARCHAR},
+            </if>
+            <if test="extraServiceFee != null">
+                extra_service_fee = #{extraServiceFee,jdbcType=VARCHAR},
+            </if>
+            <if test="discount != null">
+                discount = #{discount,jdbcType=VARCHAR},
+            </if>
+            <if test="totalFee != null">
+                total_fee = #{totalFee,jdbcType=VARCHAR},
+            </if>
+            <if test="point != null">
+                point = #{point,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

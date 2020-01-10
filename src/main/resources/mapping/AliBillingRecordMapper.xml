@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.AliBillingRecordDao">
+  <resultMap id="BaseResultMap" type="com.crw.contact.entity.AliBillingRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="trading_status" jdbcType="VARCHAR" property="tradingStatus" />
+    <result column="consumption_name" jdbcType="VARCHAR" property="consumptionName" />
+    <result column="cid" jdbcType="VARCHAR" property="cid" />
+    <result column="trading_number" jdbcType="VARCHAR" property="tradingNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, time, create_time, name, amount, trading_status, consumption_name, cid, trading_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from ali_billing_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ali_billing_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.crw.contact.entity.AliBillingRecord">
+    insert into ali_billing_record (id, time, create_time, 
+      name, amount, trading_status, 
+      consumption_name, cid, trading_number
+      )
+    values (#{id,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{name,jdbcType=VARCHAR}, #{amount,jdbcType=VARCHAR}, #{tradingStatus,jdbcType=VARCHAR}, 
+      #{consumptionName,jdbcType=VARCHAR}, #{cid,jdbcType=VARCHAR}, #{tradingNumber,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.crw.contact.entity.AliBillingRecord">
+    insert into ali_billing_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="tradingStatus != null">
+        trading_status,
+      </if>
+      <if test="consumptionName != null">
+        consumption_name,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="tradingNumber != null">
+        trading_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingStatus != null">
+        #{tradingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionName != null">
+        #{consumptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingNumber != null">
+        #{tradingNumber,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crw.contact.entity.AliBillingRecord">
+    update ali_billing_record
+    <set>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingStatus != null">
+        trading_status = #{tradingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionName != null">
+        consumption_name = #{consumptionName,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="tradingNumber != null">
+        trading_number = #{tradingNumber,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crw.contact.entity.AliBillingRecord">
+    update ali_billing_record
+    set time = #{time,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      name = #{name,jdbcType=VARCHAR},
+      amount = #{amount,jdbcType=VARCHAR},
+      trading_status = #{tradingStatus,jdbcType=VARCHAR},
+      consumption_name = #{consumptionName,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=VARCHAR},
+      trading_number = #{tradingNumber,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

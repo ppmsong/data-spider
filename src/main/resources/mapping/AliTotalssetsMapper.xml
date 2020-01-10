@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crw.contact.dao.AliTotalssetsDao">
+  <resultMap id="BaseResultMap" type="com.crw.contact.entity.AliTotalssets">
+    <id column="id" jdbcType="VARCHAR" property="id"/>
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    <result column="balance" jdbcType="VARCHAR" property="balance"/>
+    <result column="yuebao_amt" jdbcType="VARCHAR" property="yuebaoAmt"/>
+    <result column="yuebao_total_profit" jdbcType="VARCHAR" property="yuebaoTotalProfit"/>
+    <result column="huabei_limit" jdbcType="VARCHAR" property="huabeiLimit"/>
+    <result column="huabei_can_limit" jdbcType="VARCHAR" property="huabeiCanLimit"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_time, balance, yuebao_amt, yuebao_total_profit, huabei_limit, huabei_can_limit
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from ali_totalssets
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ali_totalssets
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.crw.contact.entity.AliTotalssets">
+    insert into ali_totalssets (id, create_time, balance, 
+      yuebao_amt, yuebao_total_profit, huabei_limit, 
+      huabei_can_limit)
+    values (#{id,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{balance,jdbcType=VARCHAR}, 
+      #{yuebaoAmt,jdbcType=VARCHAR}, #{yuebaoTotalProfit,jdbcType=VARCHAR}, #{huabeiLimit,jdbcType=VARCHAR}, 
+      #{huabeiCanLimit,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.crw.contact.entity.AliTotalssets">
+    insert into ali_totalssets
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="balance != null">
+        balance,
+      </if>
+      <if test="yuebaoAmt != null">
+        yuebao_amt,
+      </if>
+      <if test="yuebaoTotalProfit != null">
+        yuebao_total_profit,
+      </if>
+      <if test="huabeiLimit != null">
+        huabei_limit,
+      </if>
+      <if test="huabeiCanLimit != null">
+        huabei_can_limit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="yuebaoAmt != null">
+        #{yuebaoAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="yuebaoTotalProfit != null">
+        #{yuebaoTotalProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="huabeiLimit != null">
+        #{huabeiLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="huabeiCanLimit != null">
+        #{huabeiCanLimit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+
+    ON DUPLICATE KEY UPDATE
+    <trim suffixOverrides=",">
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="yuebaoAmt != null">
+        yuebao_amt = #{yuebaoAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="yuebaoTotalProfit != null">
+        yuebao_total_profit = #{yuebaoTotalProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="huabeiLimit != null">
+        huabei_limit = #{huabeiLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="huabeiCanLimit != null">
+        huabei_can_limit = #{huabeiCanLimit,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crw.contact.entity.AliTotalssets">
+    update ali_totalssets
+    <set>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=VARCHAR},
+      </if>
+      <if test="yuebaoAmt != null">
+        yuebao_amt = #{yuebaoAmt,jdbcType=VARCHAR},
+      </if>
+      <if test="yuebaoTotalProfit != null">
+        yuebao_total_profit = #{yuebaoTotalProfit,jdbcType=VARCHAR},
+      </if>
+      <if test="huabeiLimit != null">
+        huabei_limit = #{huabeiLimit,jdbcType=VARCHAR},
+      </if>
+      <if test="huabeiCanLimit != null">
+        huabei_can_limit = #{huabeiCanLimit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crw.contact.entity.AliTotalssets">
+    update ali_totalssets
+    set create_time = #{createTime,jdbcType=TIMESTAMP},
+      balance = #{balance,jdbcType=VARCHAR},
+      yuebao_amt = #{yuebaoAmt,jdbcType=VARCHAR},
+      yuebao_total_profit = #{yuebaoTotalProfit,jdbcType=VARCHAR},
+      huabei_limit = #{huabeiLimit,jdbcType=VARCHAR},
+      huabei_can_limit = #{huabeiCanLimit,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
