@@ -45,6 +45,9 @@ public class SystemConfig {
     if (StringUtils.isEmpty(domain)) {
       SystemConfig.localAddress = Inet4Address.getLocalHost().getHostAddress()
           + ":" + environment.getProperty("server.port");
+    }else{
+      SystemConfig.localAddress = domain
+              + ":" + environment.getProperty("server.port");
     }
   }
 
