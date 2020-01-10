@@ -19,7 +19,7 @@ logging:
 
 
 dataSpider:
-  domain: 103.47.241.45:8800
+  domain: 103.47.241.45
   # 代理
   proxyIpAndPort:
   alipay:
