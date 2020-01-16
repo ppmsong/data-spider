@@ -1,6 +1,7 @@
 package com.crw.contact;
 
 import com.crw.contact.entity.CommDetail;
+import com.crw.util.FontUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +24,26 @@ import java.util.List;
 @PropertySource({"classpath:application.yml"})
 public class DataSpiderApplicationTests {
 
-
+    @Autowired
+    RestTemplate restTemplate;
 
     @Test
     public void contextLoads() throws Exception {
 
-        CommDetail a = new CommDetail();
+        System.out.println(FontUtil.decodeUnicode(restTemplate.getForObject("https://cx.shouji.360.cn/phonearea.php?number=18268884978",String.class)));
+
+/*
+        String postResult =restTemplate.postForObject("http://localhost:8800/mobile/sendSmsCode","phone=19873874",String.class);
+        System.out.println(postResult);*/
+
+       /* CommDetail a = new CommDetail();
         a.setId("11111");
         a.setNm("2222");
         a.setCommfee("were");
         a.setCommtype("rewr");
 
         List<CommDetail> b = new ArrayList<>();
-        b.add(a);
+        b.add(a);*/
 
         /*String sid = "0277ded1-a5fa-40f6-a396-9c192049051c";
         String url = "http://www.baidu.com";

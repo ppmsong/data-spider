@@ -1,6 +1,7 @@
 package com.crw.crawler;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.crw.common.BaseRemoteExecute;
 import com.crw.common.Constants;
 import com.crw.common.Result;
@@ -815,7 +816,7 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
       customerInfo.setCreateTime(new Date());
       customerInfoDao.insert(customerInfo);
       log.info("{}采集{}信息结束<---", "联通", "基本");
-      return new Result(Constants.SUCCESS, JSON.toJSON(customerInfo));
+      return new Result(Constants.SUCCESS, JSON.toJSON(customerInfo),"个人信息采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集个人信息失败 {}, {}", nm, e.toString());
@@ -921,7 +922,7 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         }
       }
       log.info("{}采集{}信息结束<---", "联通", "账单");
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"账单信息采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集账单信息失败 {}, {}", nm, e.toString());
@@ -1004,13 +1005,15 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         }
       }
       log.info("{}采集{}信息结束<---", "联通", "通话");
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"通话语音信息采集成功");
     } catch (VerifyException ve) {
-      return new Result(Constants.SYSTEMERROR, "采集中断需要验证码，请注意查收; 位置标示码：" + ve.getUrl());
+      JSONObject data = new JSONObject();
+      data.put("urlCode", ve.getUrl());
+      return new Result(Constants.NEW_AUTH, data,"采集中断需要验证码，请注意查收; 位置标示码：" + ve.getUrl());
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集通话语音信息失败 {}, {}", nm, e.toString());
-      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR));
+      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR),"采集通话语音信息失败");
     }
   }
 
@@ -1108,13 +1111,15 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         }
       }
       log.info("{}采集{}信息结束<---", "联通", "短信");
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"短信彩信信息采集成功");
     } catch (VerifyException ve) {
-      return new Result(Constants.SYSTEMERROR, "采集中断需要验证码，请注意查收; 位置标示码：" + ve.getUrl());
+      JSONObject data = new JSONObject();
+      data.put("urlCode", ve.getUrl());
+      return new Result(Constants.NEW_AUTH, data,"采集中断需要验证码，请注意查收; 位置标示码：" + ve.getUrl());
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集短信彩信信息失败 {}, {}", nm, e.toString());
-      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR));
+      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR),"短信彩信信息失败");
     }
   }
 
@@ -1207,13 +1212,15 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         }
       }
       log.info("{}采集{}信息结束<---", "联通", "上网流量");
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"上网流量信息采集成功");
     } catch (VerifyException ve) {
-      return new Result(Constants.SYSTEMERROR, "采集中断需要验证码，请注意查收; 位置标示码：" + ve.getUrl());
+      JSONObject data = new JSONObject();
+      data.put("urlCode",ve.getUrl());
+      return new Result(Constants.NEW_AUTH, data,"采集中断需要验证码，请注意查收; 位置标示码：" + ve.getUrl());
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集上网流量信息息失败 {}, {}", nm, e.toString());
-      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR));
+      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR),"上网流量信息采集失败");
     }
   }
 
@@ -1299,7 +1306,7 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         }
       }
       log.info("{}采集{}信息结束<---", "联通", "缴费");
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"充值记录信息采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集充值记录信息失败 {}, {}", nm, e.toString());
@@ -1360,7 +1367,7 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         }
       }
       log.info("{}采集{}信息结束<---", "联通", "套餐");
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"套餐信息采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集套餐信息失败 {}, {}", nm, e.toString());
@@ -1447,18 +1454,20 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         delDriver(sessionid);
       }
     } catch (VerifyException ve) {
-      return new Result(Constants.SYSTEMERROR, "采集中断需要验证码，请注意查收; 位置标示码:" + ve.getUrl());
+      JSONObject data = new JSONObject();
+      data.put("urlCode", ve.getUrl());
+      return new Result(Constants.NEW_AUTH, data,"采集中断需要验证码，请注意查收; 位置标示码:" + ve.getUrl());
     } catch (AliVerifyException ae) {
-      return new Result(Constants.SYSTEMERROR, ae.getAliVerify());
+      return new Result(Constants.SYSTEMERROR, ae.getAliVerify(),"信息采集失败:"+ ae.getMessage());
     } catch (Exception e) {
       e.printStackTrace();
       if (driver != null) {
         driver.quit();
         delDriver(sessionid);
       }
-      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR));
+      return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR),"信息采集失败:"+e.getMessage());
     }
-    return new Result(Constants.SUCCESS, Constants.getMessage(Constants.SUCCESS));
+    return new Result(Constants.SUCCESS, Constants.getMessage(Constants.SUCCESS),"信息采集成功");
   }
 
   public Result inputNum(String sessionid, String num) {

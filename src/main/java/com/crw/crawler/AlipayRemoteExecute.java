@@ -143,7 +143,7 @@ public class AlipayRemoteExecute extends BaseRemoteExecute {
           putAlipayDriver(sessionid, driver);
           data.put("qrPath", qrPath);
           data.put("urlCode", "1");
-          return new Result(Constants.SUCCESS, data);
+          return new Result(Constants.SUCCESS, data,"采集成功");
         } else {
           throw new Exception();
         }
@@ -164,7 +164,7 @@ public class AlipayRemoteExecute extends BaseRemoteExecute {
       e.printStackTrace();
       return new Result(Constants.SYSTEMERROR, "获取到登陆二维码异常");
     }
-    return new Result(Constants.SUCCESS, data);
+    return new Result(Constants.SUCCESS, data,"采集成功");
   }
 
 
@@ -187,7 +187,7 @@ public class AlipayRemoteExecute extends BaseRemoteExecute {
       }
     } catch (AliVerifyException ve) {
       ve.printStackTrace();
-      return new Result(Constants.SYSTEMERROR, ve.getAliVerify());
+      return new Result(Constants.SYSTEMERROR, ve.getAliVerify(),"采集失败");
     } catch (Exception e) {
       driver.quit();
       delDriver(sessionid);

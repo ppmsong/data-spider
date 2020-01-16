@@ -1,6 +1,7 @@
 package com.crw.crawler;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.crw.common.BaseRemoteExecute;
 import com.crw.common.Constants;
 import com.crw.common.Result;
@@ -182,8 +183,9 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
       // 获取验证码图片
       String imgUrl = getQRCode(driver,
           driver.findElement(By.xpath("//img[contains(@id,'imageVec')]")));
-
-      return new Result(Constants.SYSTEMERROR,
+      JSONObject data = new JSONObject();
+      data.put("imgCode",SystemConfig.localAddress + imgUrl);
+      return new Result(Constants.NEW_AUTH,data,
           "需要身份验证,注意查收手机验证码; 图片验证码URL: " + SystemConfig.localAddress + imgUrl);
     } catch (Exception e) {
       e.printStackTrace();
@@ -233,7 +235,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
         FileUtils.copyFile(screenshot, screenshotLocation);
         putDriver(sessionId, driver);
       }
-      return new Result(Constants.SUCCESS, screenshotLocation);
+      return new Result(Constants.SUCCESS, screenshotLocation,"采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       return new Result(Constants.SYSTEMERROR, Constants.getMessage(Constants.SYSTEMERROR));
@@ -389,7 +391,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
       customerInfo.setCreateTime(new Date());
       customerInfoDao.insert(customerInfo);
 
-      return new Result(Constants.SUCCESS, JSON.toJSON(customerInfo));
+      return new Result(Constants.SUCCESS, JSON.toJSON(customerInfo),"采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       logger.warn("采集个人信息失败 {}, {}", nm, e.toString());
@@ -496,7 +498,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
       if (list.size() > 0) {
         billInfoDao.insertBatch(list);
       }
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"采集成功");
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -598,7 +600,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
         logger.warn("成功插入{} 移动通话语音详单数据 {}条", nm, num);
       }
 
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       logger.warn("采集移动通话语音详单数据发生异常 {},{}", nm, e.toString());
@@ -690,7 +692,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
         logger.warn("成功插入{} 短信彩信信息数据 {}条 ", nm, num);
       }
 
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       logger.warn("采集短信彩信数据发生异常 {},{}", nm, e.toString());
@@ -767,7 +769,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
         int num = netInfoDao.insertBatch(list);
         logger.warn("成功插入{} 上网流量数据 {}条 ", nm, num);
       }
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       logger.warn("采集上网流量数据发生异常 {},{}", nm, e.toString());
@@ -825,7 +827,7 @@ public class ChinaMobileRemoteExecute extends BaseRemoteExecute {
         logger.warn("成功插入{} 充值记录数据 {}条 ", nm, num);
       }
 
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       logger.warn("采集充值记录数据发生异常 {},{}", nm, e.toString());

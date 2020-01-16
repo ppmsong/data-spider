@@ -97,7 +97,7 @@ public class UnicomController extends BaseController {
     Result rs = chinaUnicomRemoteExecute.quit(getSessionid());
     return rs;
   }
-
+/*
   //  @ApiOperation("联通输入查询验证码")
 //  @GetMapping("queryCode")
   public Result queryCode(String code, String url) {
@@ -118,6 +118,6 @@ public class UnicomController extends BaseController {
   public Result login(String code) {
     Result result = chinaUnicomRemoteExecute.login(getSessionid(), code);
     return result;
-  }
+  }*/
 
 }

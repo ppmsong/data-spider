@@ -5,10 +5,19 @@ import java.io.Serializable;
 public class Result implements Serializable {
 	public int code;
 	public Object data;
-	public Result(int code, Object data) {
+	public String message;
+
+	public Result(int code, String message) {
+		this.code = code;
+		this.message = message;
+	}
+
+	public Result(int code, Object data,String message) {
 		this.code = code;
 		this.data = data;
+		this.message = message;
 	}
+
 	public int getCode() {
 		return code;
 	}

@@ -173,7 +173,7 @@ public class ChinaTelecomExecute extends BaseRemoteExecute {
       customerInfo.setAvailableBalance(available_balance);
       customerInfo.setCreateTime(new Date());
       customerInfoDao.insert(customerInfo);
-      return new Result(Constants.SUCCESS, JSON.toJSON(customerInfo));
+      return new Result(Constants.SUCCESS, JSON.toJSON(customerInfo),"个人信息采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集个人信息失败 {}, {}", nm, e.toString());
@@ -212,7 +212,7 @@ public class ChinaTelecomExecute extends BaseRemoteExecute {
         packageInfoDao.insert(packageInfo);
       } catch (Exception ex) {
       }
-      return new Result(Constants.SUCCESS, JSON.toJSON(packageInfo));
+      return new Result(Constants.SUCCESS, JSON.toJSON(packageInfo),"套餐信息数据采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集套餐信息数据发生异常 {},{}", nm, e.toString());
@@ -287,7 +287,7 @@ public class ChinaTelecomExecute extends BaseRemoteExecute {
         }
         list.add(billInfo);
       }
-      return new Result(Constants.SUCCESS, JSON.toJSON(list));
+      return new Result(Constants.SUCCESS, JSON.toJSON(list),"账单信息采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集账单信息失败 {}, {}", nm, e.toString());
@@ -315,7 +315,7 @@ public class ChinaTelecomExecute extends BaseRemoteExecute {
       Document docIframe = Jsoup.parse(iframe);
       docIframe.selectFirst(".main-c3 table tbody ");
 
-      return new Result(Constants.SUCCESS, JSON.toJSON(""));
+      return new Result(Constants.SUCCESS, "采集成功");
     } catch (Exception e) {
       e.printStackTrace();
       log.warn("采集详单信息失败 {}, {}", nm, e.toString());
