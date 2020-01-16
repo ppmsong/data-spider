@@ -46,6 +46,10 @@ public class BaseRemoteExecute {
     return CacheManageTool.cacheAlipayDriver.getIfPresent(sessionid);
   }
 
+  protected void delAlipayDriver(String sessionid){
+    CacheManageTool.cacheAlipayDriver.invalidate(sessionid);
+  }
+
   protected void putAlipayAccount(String sessionid, String accountName){
     CacheManageTool.cacheAlipayAccount.put(sessionid,accountName);
   }
