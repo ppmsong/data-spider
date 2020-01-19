@@ -1396,7 +1396,7 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
         return new Result(Constants.SUCCESS, msg);
       }
 
-      if (StringUtils.isNotEmpty(urlCode)) {
+     /* if (StringUtils.isNotEmpty(urlCode)) {
         if ("1".equals(urlCode)) {
           // 短信信息
           return smsinfoQry(sessionId);
@@ -1407,7 +1407,7 @@ public class ChinaUnicomRemoteExecute extends BaseRemoteExecute {
           // 通话语音信息
           return callinfoQry(sessionId);
         }
-      }
+      }*/
       return new Result(Constants.SUCCESS, "success");
     } catch (Exception e) {
       e.printStackTrace();

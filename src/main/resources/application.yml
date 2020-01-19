@@ -1,5 +1,5 @@
 server:
-  port: 8800
+  port: 80
 
 jdbc:
   driverClassName: com.mysql.jdbc.Driver
@@ -19,7 +19,7 @@ logging:
 
 
 dataSpider:
-  domain:
+  domain: 103.47.241.45
   # 代理
   proxyIpAndPort:
   alipay:
